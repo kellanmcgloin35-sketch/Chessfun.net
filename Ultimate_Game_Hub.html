@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ultimate Game Hub</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #111, #1e1e2f);
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 20px;
+    }
+
+    input {
+      padding: 12px;
+      width: 70%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .game {
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .game:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #clickScore {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎮 Ultimate Game Hub</h1>
+
+<input type="text" id="search" placeholder="Search games...">
+
+<div class="games" id="gameList">
+
+  <div class="game" data-name="clicker">
+    <h3>Clicker Game</h3>
+    <button onclick="increaseScore()">Click Me!</button>
+    <div id="clickScore">Score: 0</div>
+  </div>
+
+  <div class="game" data-name="guessing">
+    <h3>Number Guess</h3>
+    <button onclick="guessNumber()">Play</button>
+  </div>
+
+  <div class="game" data-name="random">
+    <h3>Random Number Generator</h3>
+    <button onclick="randomNumber()">Generate</button>
+    <div id="randomOutput"></div>
+  </div>
+
+</div>
+
+<script>
+let score = 0;
+
+function increaseScore() {
+  score++;
+  document.getElementById("clickScore").innerText = "Score: " + score;
+}
+
+function guessNumber() {
+  const number = Math.floor(Math.random() * 10) + 1;
+  alert("I picked a number between 1-10. It was: " + number);
+}
+
+function randomNumber() {
+  const num = Math.floor(Math.random() * 100);
+  document.getElementById("randomOutput").innerText = "Number: " + num;
+}
+
+const searchInput = document.getElementById("search");
+const games = document.querySelectorAll(".game");
+
+searchInput.addEventListener("keyup", function() {
+  const value = searchInput.value.toLowerCase();
+  games.forEach(game => {
+    const name = game.getAttribute("data-name");
+    game.style.display = name.includes(value) ? "block" : "none";
+  });
+});
+</script>
+
+</body>
+</html>
